@@ -12,7 +12,8 @@ import java.util.Random;
 @ComponentScan(basePackages = "screensaver")
 public class Config {
     @Bean
-    @Scope(value = "prototype")
+    // 3. Если укажем singleton - цвет вообще менятся не будет
+    @Scope(value = "periodical")
     public Color color(){
         Random random = new Random();
         // В XML так бы элегантно не получилось бы
