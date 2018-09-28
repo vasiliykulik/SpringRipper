@@ -9,18 +9,20 @@ import java.util.Random;
  * @author Vasiliy Kylik on(Rocket) on 25.09.2018.
  */
 @Configuration
+// Просим просканировать пакет что бы найти Bean
 @ComponentScan(basePackages = "screensaver")
 public class Config {
     @Bean
     // 3. Если укажем singleton - цвет вообще менятся не будет
     @Scope(value = "periodical")
-    public Color color(){
+    public Color color() {
         Random random = new Random();
         // В XML так бы элегантно не получилось бы
-        return new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255));
+        return new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255));
     }
+
     @Bean
-    public ColorFrame frame(){
+    public ColorFrame frame() {
         return new ColorFrame() {
             @Override
             protected Color getColor() {
@@ -31,10 +33,9 @@ public class Config {
 
     public static void main(String[] args) throws InterruptedException {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
-        while (true){
+        while (true) {
             context.getBean(ColorFrame.class).showOnRandomPlace();
             Thread.sleep(100);
         }
     }
-
 }
